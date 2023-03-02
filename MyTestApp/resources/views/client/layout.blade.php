@@ -7,6 +7,7 @@
     <title>MyTest</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Favicons -->
     <meta name="theme-color" content="#7952b3">
 
@@ -19,7 +20,12 @@
             -moz-user-select: none;
             user-select: none;
         }
-
+        .nav-link{
+            color: white;
+        }
+        .nav-link:hover{
+            color: orange;
+        }
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -30,208 +36,51 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.2-dev/css/formValidation.min.css" integrity="sha512-B9GRVQaYJ7aMZO3WC2UvS9xds1D+gWQoNiXiZYRlqIVszL073pHXi0pxWxVycBk0fnacKIE3UHuWfSeETDCe7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">
 <body class="bg-light">
+    <nav class="navbar navbar-expand-lg  bg-dark sticky-top overflow-hidden">
+        <div class="container">
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarExample01"
+                aria-controls="navbarExample01"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarExample01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item text-white">
+                        <a class="nav-link" href="{{route('catalog')}}">Catalog</a>
+                    </li>
+                    <li class="nav-item text-white">
+                        <a class="nav-link" href="{{route('forms')}}">Forms</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<div class="container">
     <main>
-        <section class="py-5">
+        <section class="py-5  overflow-hidden">
             <div class="row g-5">
-                <div class="col-md-8">
-                    <h4 class="mb-3">Set JSON Object</h4>
-                    <form class="needs-validation" id="requestCreateForm">
-                        @csrf
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <label for="uToken" class="form-label">Your Token</label>
-                                    <input type="text" class="form-control" id="uToken" placeholder="" value="" required="">
-                                    <div class="invalid-feedback">
-                                        Valid uToken name is required.
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="data" class="form-label">Your Data</label>
-                                        <input type="text" name="data" class="form-control" id="data" placeholder="" value='{"title": "Ban","price": 2000, "count": 1,"description": "qwerty"}' required="">
-                                    <div class="invalid-feedback">
-                                        Valid Data name is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="my-4">
-
-                            <h4 class="mb-3">Type</h4>
-
-                            <div class="my-3">
-                                <div class="form-check">
-                                    <input id="get" name="type" value="get" type="radio" class="form-check-input"  required="">
-                                    <label class="form-check-label" for="get">Get</label>
-                                </div>
-                                <div class="form-check">
-                                    <input id="post" name="type" value="set" type="radio" class="form-check-input" checked="" required="">
-                                    <label class="form-check-label" for="post">Post</label>
-                                </div>
-                            </div>
-                            <hr class="my-4">
-                            <button class="w-100 btn btn-primary btn-lg" type="submit">Set</button>
-                    </form>
-                </div>
-                <div class="col-md-8">
-                    <h4 class="mb-3">Create JSON Object</h4>
-                    <form class="needs-validation" id="requestSetForm">
-                        @csrf
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label for="uToken" class="form-label">Your Token</label>
-                                <input type="text" class="form-control" id="uToken" placeholder="" value="" required="">
-                                <div class="invalid-feedback">
-                                    Valid uToken name is required.
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="itemId" class="form-label">Item Id</label>
-                                <input type="number" class="form-control" name="id" id="itemId" placeholder="" value="" required="">
-                                <div class="invalid-feedback">
-                                    Valid Id is required.
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="data" class="form-label">Your Data</label>
-                                <input type="text" name="data" class="form-control" id="data" placeholder="" value='{"title": "Ban","price": 2000, "count": 1,"description": "qwerty"}' required="">
-                                <div class="invalid-feedback">
-                                    Valid Data name is required.
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="my-4">
-
-                        <h4 class="mb-3">Type</h4>
-
-                        <div class="my-3">
-                            <div class="form-check">
-                                <input id="get" name="type" value="get" type="radio" class="form-check-input"  required="">
-                                <label class="form-check-label" for="get">Get</label>
-                            </div>
-                            <div class="form-check">
-                                <input id="post" name="type" value="set" type="radio" class="form-check-input" checked="" required="">
-                                <label class="form-check-label" for="post">Post</label>
-                            </div>
-                        </div>
-                        <hr class="my-4">
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Set</button>
-                    </form>
-                </div>
+               @yield('main')
             </div>
         </section>
 
     </main>
 
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">2022 Bergman</p>
+    <footer class="my-5 pt-5 text-muted text-center text-small  overflow-hidden">
+        <p class="mb-1">2023 Bergman</p>
     </footer>
-</div>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{asset('assets/js/index.js')}}"></script>
-<script>
-    document.querySelector('#requestCreateForm').addEventListener('submit',async (e) => {
-        e.preventDefault()
-        let token = e.target.querySelector('#uToken').value
-            let response = await fetch('/createData',{
-                method: 'POST',
-                headers:{
-                    Authorization: `Bearer ${token}`,
-                    Accept :'application/json',
-                },
-                body : new FormData(e.target)
-            }).then( data => {
-                console.log(data)
-                switch (data.status){
-                    case 200:
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: `Object has been created`,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                        break;
-                    case 401:
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Invalid Token',
-                            text: 'Check your input',
-                        })
-                        break;
-                    case 500:
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                        })
-                        break;
-                }
-                }
 
-            )
-            console.log(JSON.parse(response))
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: `ID: ${JSON.parse(response).id}`,
-                showConfirmButton: false,
-                timer: 1500
-            })
-    })
-</script>
-<script>
-    document.querySelector('#requestSetForm').addEventListener('submit',async (e) => {
-        e.preventDefault()
-        let token = e.target.querySelector('#uToken').value
-        let response = await fetch('/setData',{
-            method: 'POST',
-            headers:{
-                Authorization: `Bearer ${token}`,
-                Accept :'application/json',
-            },
-            body : new FormData(e.target)
-        }).then( data => {
-                switch (data.status){
-                    case 200:
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Object has been edited',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                        break;
-                    case 410:
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'You don`t have item with this ID',
-                            text: 'Check your input',
-                        })
-                        break;
-                    case 401:
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Invalid Token',
-                            text: 'Check your input',
-                        })
-                        break;
-                    case 500:
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                        })
-                        break;
-                }
-            }
-
-        )
-        console.log(JSON.parse(response))
-    })
-</script>
+@stack('script')
 </body></html>

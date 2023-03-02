@@ -13,12 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\PageController::class, 'index'])->name('setForm');
-Route::get('/getForm', function () {
-    return view('welcome');
-})->name('getForm');
+Route::get('/', [\App\Http\Controllers\PageController::class, 'index'])->name('forms');
+Route::get('/catalog', [\App\Http\Controllers\PageController::class, 'catalog'])->name('catalog');
+Route::post('/deleteItem', [\App\Http\Controllers\TestObjectController::class, 'destroy']);
 Route::middleware('auth:sanctum')->group(function () {
         Route::match(['get', 'post'], '/createData', [\App\Http\Controllers\TestObjectController::class, 'createData']);
-    Route::match(['get', 'post'], '/setData', [\App\Http\Controllers\TestObjectController::class, 'setData']);
+        Route::match(['get', 'post'], '/setData', [\App\Http\Controllers\TestObjectController::class, 'setData']);
     }
 );

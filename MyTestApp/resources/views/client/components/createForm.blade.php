@@ -1,25 +1,18 @@
 <section>
     <div class="row">
         <div class="col-md-8">
-            <h4 class="mb-3">Create JSON Object</h4>
-            <form class="needs-validation" id="requestSetForm">
+            <h4 class="mb-3">Set JSON Object</h4>
+            <form class="needs-validation" id="requestCreateForm">
                 @csrf
                 <div class="row g-3">
-                    <div class="col-sm-6">
+                    <div class="col-12">
                         <label for="uToken" class="form-label">Your Token</label>
                         <input type="text" class="form-control" id="uToken" placeholder="" value="" required="">
                         <div class="invalid-feedback">
                             Valid uToken name is required.
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <label for="itemId" class="form-label">Item Id</label>
-                        <input type="number" class="form-control" name="id" id="itemId" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                            Valid Id is required.
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
+                    <div class="col-12">
                         <label for="data" class="form-label">Your Data</label>
                         <input type="text" name="data" class="form-control" id="data" placeholder="" value='{"title": "Ban","price": 2000, "count": 1,"description": "qwerty"}' required="">
                         <div class="invalid-feedback">
@@ -49,14 +42,14 @@
 </section>
 @push('script')
     <script>
-        document.querySelector('#requestSetForm').addEventListener('submit',async (e) => {
+        document.querySelector('#requestCreateForm').addEventListener('submit',async (e) => {
             e.preventDefault()
             let type = e.target.querySelector('input[name="type"]:checked').value
             let token = e.target.querySelector('#uToken').value
             let response
             switch (type){
                 case 'POST':
-                    response = await fetch('/setData',{
+                    response = await fetch('/createData',{
                         method: 'POST',
                         headers:{
                             Authorization: `Bearer ${token}`,
@@ -64,21 +57,15 @@
                         },
                         body : new FormData(e.target)
                     }).then( data => {
+                        console.log(data)
                         switch (data.status){
                             case 200:
                                 Swal.fire({
                                     position: 'top-end',
                                     icon: 'success',
-                                    title: 'Object has been edited',
+                                    title: `Object has been created`,
                                     showConfirmButton: false,
                                     timer: 1500
-                                })
-                                break;
-                            case 410:
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'You don`t have item with this ID',
-                                    text: 'Check your input',
                                 })
                                 break;
                             case 401:
@@ -105,10 +92,9 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    console.log(JSON.parse(response))
                     break;
                 case 'GET':
-                    response = await fetch(`/setData?&id=${e.target.querySelector('input[name="id"]').value}&data=${e.target.querySelector('input[name="data"]').value}`,{
+                    response = await fetch(`/createData?&data=${e.target.querySelector('input[name="data"]').value}`,{
                         method: 'GET',
                         headers:{
                             Authorization: `Bearer ${token}`,
