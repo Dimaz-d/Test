@@ -13,44 +13,15 @@ class TestObjectController extends Controller
     {
         // Authenticate user based on token in header
         $user = Auth::guard('api')->user();
-        if (!$user) {
+Ашч        if (! $user) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         $data = $request->input('data');
-        $object = TestObject::where('user_id', $user->id)->where('id', $request->input('id'))->first();
-        if ( is_null($object)) {
+        $object = TestObject::where('user_id', $user->id)->where('id', $request->get('id'))->first();
+        if (is_null($object)) {
             return response()->json(['message' => 'Invalid id'], 410);
         }
-            // Edit object in database
-            $object->fill(json_decode($data, true));
-            $object->user_id = $user->id;
-            $object->save();
-            // Return object ID and processing time and memory
-            $id = $object->id;
-            $processing_time = microtime(true) - LARAVEL_START;
-            $memory_usage = memory_get_usage(true) / 1024 / 1024;
-            $response = [
-                'id' => $id,
-                'processing_time' => $processing_time,
-                'memory_usage' => $memory_usage,
-            ];
-            return response()->json($response);
-    }
-
-    public function createData(Request $request)
-    {
-        // Authenticate user based on token in header
-        $user = Auth::guard('api')->user();
-        if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-        // Save object to database
-        $object = new TestObject();
-        if($request->isMethod('post')){
-            $data = $request->input('data');
-        }else if($request->isMethod('get')){
-            $data = $request->get('data');
-        }
+        // Edit object in database
         $object->fill(json_decode($data, true));
         $object->user_id = $user->id;
         $object->save();
@@ -66,8 +37,34 @@ class TestObjectController extends Controller
         return response()->json($response);
     }
 
-    public function destroy(Request $request){
+    public function createData(Request $request)
+    {
+        // Authenticate user based on token in header
+        $user = Auth::guard('api')->user();
+        if (! $user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        // Save object to database
+        $object = new TestObject();
+        $data = $request->get('data');
+        $object->fill(json_decode($data, true));
+        $object->user_id = $user->id;
+        $object->save();
+        // Return object ID and processing time and memory
+        $id = $object->id;
+        $processing_time = microtime(true) - LARAVEL_START;
+        $memory_usage = memory_get_usage(true) / 1024 / 1024;
+        $response = [
+            'id' => $id,
+            'processing_time' => $processing_time,
+            'memory_usage' => $memory_usage,
+        ];
+        return response()->json($response);
+    }
+
+    public function destroy(Request $request)
+    {
         TestObject::destroy($request->post('id'));
-        return response()->json(['message' => 'Item Deleted'], 200);;
+        return response()->json(['message' => 'Item Deleted'], 200);
     }
 }
