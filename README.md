@@ -1,3 +1,11 @@
+After project cloning run
+
+    composer install --no-scripts --no-autoloader --no-interaction --dev
+    
+    composer dump-autoload --optimize
+    
+    php artisan key:generate
+
 First of all, you must create database, change db connection credentials in .env file. 
 Then open in terminal project folder and run 
 
