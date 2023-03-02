@@ -1,12 +1,16 @@
+    git clone https://github.com/Dimaz-d/Test.git
+
 After project cloning run
 
     composer install --no-scripts --no-autoloader --no-interaction --dev
     
     composer dump-autoload --optimize
     
+Rename .env.example to .env
+    
     php artisan key:generate
 
-First of all, you must create database, rename .env.example to .end and change db connection credentials. 
+First of all, you must create database and change db connection credentials in .env. 
 Then open in terminal project folder and run 
 
     php artisan migrate --seed
