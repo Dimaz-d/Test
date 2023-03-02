@@ -1,7 +1,7 @@
 <section>
     <div class="row">
         <div class="col-md-8">
-            <h4 class="mb-3">Set JSON Object</h4>
+            <h4 class="mb-3">Create JSON Object</h4>
             <form class="needs-validation" id="requestCreateForm">
                 @csrf
                 <div class="row g-3">
