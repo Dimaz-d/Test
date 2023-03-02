@@ -13,7 +13,7 @@ class TestObjectController extends Controller
     {
         // Authenticate user based on token in header
         $user = Auth::guard('api')->user();
-Ашч        if (! $user) {
+        if (! $user) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         $data = $request->input('data');
