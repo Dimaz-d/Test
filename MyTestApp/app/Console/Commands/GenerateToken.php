@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 
 class GenerateToken extends Command
 {
@@ -33,7 +34,7 @@ class GenerateToken extends Command
         ];
 
         if (Auth::once($credentials)) {
-            $token = Auth::user()->createToken('console-token')->accessToken;
+            $token = Auth::user()->createToken('command-token')->plainTextToken;
             $expires_at = now()->addMinute(5);
             $this->info("Token: $token\nExpires at: $expires_at");
         } else {

@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [\App\Http\Controllers\PageController::class, 'index'])->name('setForm');
+Route::get('/getForm', function () {
     return view('welcome');
-});
+})->name('getForm');
+Route::middleware('auth:sanctum')->group(function () {
+        Route::match(['get', 'post'], '/createData', [\App\Http\Controllers\TestObjectController::class, 'createData']);
+    Route::match(['get', 'post'], '/setData', [\App\Http\Controllers\TestObjectController::class, 'setData']);
+    }
+);
