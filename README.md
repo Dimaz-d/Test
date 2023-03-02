@@ -6,7 +6,7 @@ After project cloning run
     
     php artisan key:generate
 
-First of all, you must create database, change db connection credentials in .env file. 
+First of all, you must create database, rename .env.example to .end and change db connection credentials. 
 Then open in terminal project folder and run 
 
     php artisan migrate --seed
@@ -19,6 +19,11 @@ Open the terminal and run
   
 {email} - you can take any email from table Users, as you want. 
 You get the token after command in terminal. Your token will expire in 5 minutes, hurry up.
+
+For testing run
+
+    php artisan test
+
 Then run in terminal
   
     php artisan serve
@@ -28,6 +33,8 @@ to run the project.
 There are to pages - Catalog and Forms.
 On page "Forms" you see two forms for creating and changing information in db. You must use token you get before.
 On page "Catalog" you can delete DB recordes, which were created before.
+
+
 
 Server config for Laravel applications on Nginx:
 
