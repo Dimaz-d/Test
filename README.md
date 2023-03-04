@@ -1,3 +1,18 @@
+<h2>Plan</h2>    
+
+| Task         | Spent time, min | Real time spent, min | Comment |
+| :---         |     :---:       |         :---:        |     :---:|
+| Reading and analyzing the technical specifications   | 10      | 20           |      -   |
+| Creating project   | 5      | 3           |      -   |
+| Development of a token generation command    | 30        | 20             |   -      |
+| Creating script to adding info inot DB <br> with personal access token and JSON object    | 30        | 40             |      -   |
+| Creating script to editing info in DB by Id <br> with personal access token and JSON object    | 20        | 20             |    -     |
+| Writing comfortable interface on HTML/CSS for working with script    | 30        | 30             |    -     |
+| Writing a page, with view of all db's table recordings, and and ability to delete them | 20        | 20             |    -     |
+| Checking and fixing code style | 20        | 20             |    perfectionistic ways     |
+
+<h2>How to use</h2>    
+    
     git clone https://github.com/Dimaz-d/Test.git
 
 After project cloning run
